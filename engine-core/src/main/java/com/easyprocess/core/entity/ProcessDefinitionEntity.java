@@ -15,6 +15,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import com.easyprocess.core.enums.ProcessStatus;
+
 @Setter
 @Getter
 @ToString
@@ -22,9 +24,10 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(
     indexes = {
-        @Index(name = "u_code_idx", columnList = "code", unique = true),
-        @Index(name = "f_form_code_idx", columnList = "formCode"),
-        @Index(name = "f_process_code_idx", columnList = "processCode")
+        @Index(name = "f_form_content_id_idx", columnList = "formContentId"),
+        @Index(name = "f_process_content_id_idx", columnList = "processContentId"),
+        @Index(name = "f_group_id_idx", columnList = "groupId"),
+        @Index(name = "u_key_version_idx", columnList = "key,version", unique = true),
     }
 )
 public class ProcessDefinitionEntity {
@@ -33,22 +36,49 @@ public class ProcessDefinitionEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  /**
+   * 所属分组
+   *
+   * @see GroupEntity#getId()
+   */
+  private Long groupId;
+
   @Column(columnDefinition = "char(64) not null")
-  private String code;
+  private String key;
 
   @Column(columnDefinition = "varchar(30) not null")
   private String name;
 
-  @Column(columnDefinition = "char(64) not null")
-  private String formCode;
+  /**
+   * 表单内容id
+   *
+   * @see ContentEntity#getId()
+   */
+  private Long formContentId;
 
-  @Column(columnDefinition = "char(64) not null")
-  private String processCode;
+  /**
+   * 流程内容id
+   *
+   * @see ContentEntity#getId()
+   */
+  private Long processContentId;
+
+  @Column(columnDefinition = "char(15) not null")
+  private ProcessStatus status;
+
+  @Column(columnDefinition = "int not null default 0")
+  private Integer version;
 
   @Column(columnDefinition = "datetime not null")
   private LocalDateTime createTime;
 
+  @Column(columnDefinition = "char(64) not null")
+  private String createUserId;
+
   @Column(columnDefinition = "datetime")
   private LocalDateTime updateTime;
+
+  @Column(columnDefinition = "char(64)")
+  private String updateUserId;
 
 }

@@ -1,7 +1,6 @@
 package com.easyprocess.core.repository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.easyprocess.core.configuration.EnableEngineCore;
 import com.easyprocess.core.entity.ProcessDefinitionEntity;
+import com.easyprocess.core.enums.ProcessStatus;
 
 @SpringBootTest
 @EnableEngineCore
@@ -21,15 +21,18 @@ public class ProcessDefinitionRepositoryTests {
   @Test
   public void testFindById() {
     ProcessDefinitionEntity entity = new ProcessDefinitionEntity();
-    processDefinitionRepository.save(entity.setCode("1111")
-        .setFormCode("Form_001")
-        .setProcessCode("Process_001")
+    processDefinitionRepository.save(entity.setKey("1111")
+        .setFormContentId(1L)
+        .setProcessContentId(1L)
         .setCreateTime(LocalDateTime.now())
+        .setCreateUserId("User_001")
+        .setVersion(1)
+        .setStatus(ProcessStatus.INIT)
         .setName("TestProcessDefinition"));
-    Optional<ProcessDefinitionEntity> optional = processDefinitionRepository.findById(1L);
-    ProcessDefinitionEntity result = optional.get();
+
+    ProcessDefinitionEntity result = processDefinitionRepository.findById(1L).orElseThrow();
     Assertions.assertThat(result).isNotNull();
-    Assertions.assertThat(result.getCode()).isEqualTo("1111");
+    Assertions.assertThat(result.getKey()).isEqualTo("1111");
   }
 
 }
