@@ -1,5 +1,11 @@
 # 审批流引擎
 
+## 项目规范
+
+**代码格式, 到爆顺序**
+
+* [intellij idea CodeStyle](easyprocess_codeStyle.xml)
+
 ## 流程引擎(ProcessEngine)
 
 ```mermaid
