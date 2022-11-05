@@ -1,4 +1,4 @@
-package com.easyprocess.core.annotations;
+package com.easyprocess.core.configuration;
 
 
 import java.lang.annotation.ElementType;

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.easyprocess.core.annotations.EnableEngineCore;
+import com.easyprocess.core.configuration.EnableEngineCore;
 import com.easyprocess.core.entity.ProcessDefinitionEntity;
 
 @SpringBootTest
