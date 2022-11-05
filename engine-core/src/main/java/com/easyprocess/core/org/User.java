@@ -1,8 +1,12 @@
 package com.easyprocess.core.org;
 
-public interface User {
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-  String getUserId();
+@Data
+@Accessors(chain = true)
+public class User {
 
-  String getUserName();
+  private String userId;
+  private String userName;
 }

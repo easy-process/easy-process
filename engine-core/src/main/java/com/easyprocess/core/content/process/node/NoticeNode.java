@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.easyprocess.core.org.User;
 
-public interface NoticeNode {
+public interface NoticeNode extends Node {
 
   List<User> getNotifiers();
 }
