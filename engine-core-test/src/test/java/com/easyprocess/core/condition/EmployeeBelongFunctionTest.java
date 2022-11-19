@@ -1,39 +1,41 @@
 package com.easyprocess.core.condition;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.easyprocess.core.org.Department;
 import com.easyprocess.core.org.OrgService;
+import com.easyprocess.core.org.RoleService;
 import com.easyprocess.core.org.User;
 import com.google.common.collect.Lists;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
 
 @Slf4j
+@ExtendWith(MockitoExtension.class)
 class EmployeeBelongFunctionTest {
+
+  @Mock
+  private OrgService orgService;
+  @Mock
+  private RoleService roleService;
 
   @Test
   public void testEmployeeBelong() {
-    ConditionEvaluatorRegistry.register(new EmployeeBelongFunction(new OrgService() {
-      @Override
-      public List<User> findLeaderWithLevel(String deptId, int level) {
-        return null;
-      }
+    User user = new User().setUserId("001").setUserName("User001");
 
-      @Override
-      public boolean employeeInDepartmentIds(User user, Collection<Department> departments) {
-        log.info("user = {}, departments = {}", user, departments);
-        return true;
-      }
+    Mockito.when(orgService.employeeInDepartmentIds(Mockito.any(), Mockito.anyCollection()))
+        .thenReturn(true);
 
-    }));
+    ConditionEvaluatorRegistry.register(new EmployeeBelongFunction(orgService, roleService));
 
     // 编写表达式
     String expression = "employeeBelong(a, b)";
@@ -41,7 +43,7 @@ class EmployeeBelongFunctionTest {
     Expression compiledExp = AviatorEvaluator.compile(expression, true);
     Map<String, Object> env = new HashMap<>();
 
-    env.put("a", new User().setUserId("001").setUserName("User001"));
+    env.put("a", user);
     UserConditionDefinition userConditionDefinition = getUserConditionDefinition();
     env.put("b", userConditionDefinition);
 
