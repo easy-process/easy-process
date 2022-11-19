@@ -30,6 +30,11 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+      <dependency>
+        <groupId>com.googlecode.aviator</groupId>
+        <artifactId>aviator</artifactId>
+        <version>5.3.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

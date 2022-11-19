@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import lombok.Data;
 
 import com.easyprocess.core.content.process.approver.ApproverType;
-import com.easyprocess.core.content.process.conditions.ProcessCondition;
+import com.easyprocess.core.content.process.conditions.ConditionDefinition;
 import com.easyprocess.core.content.process.node.Node;
 import com.easyprocess.core.content.process.node.impl.AbstractApproverNode;
 import com.easyprocess.core.content.process.node.impl.FormContactApproverNode;
@@ -28,7 +28,7 @@ public class NodeContent {
   private String title;
   private NodeContent next;
   private List<NodeContent> children;
-  private ProcessCondition condition;
+  private ConditionDefinition condition;
 
   private NodeType type;
 
