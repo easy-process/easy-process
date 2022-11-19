@@ -4,7 +4,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 
-public abstract class AbstractConditionEvaluator extends AbstractFunction implements InitializingBean, ConditionEvaluator {
+public abstract class AbstractConditionEvaluator extends AbstractFunction implements InitializingBean {
 
   @Override
   public void afterPropertiesSet() {
