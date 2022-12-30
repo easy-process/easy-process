@@ -2,6 +2,7 @@ package com.easyprocess.core.content.process.node.impl;
 
 import java.util.List;
 
+import com.easyprocess.core.content.process.node.NoticeNode;
 import com.easyprocess.core.engine.Context;
 import com.easyprocess.core.org.OrgService;
 import com.easyprocess.core.org.User;
@@ -9,7 +10,7 @@ import com.easyprocess.core.org.User;
 /**
  * 主管审批
  */
-public class LeaderApproverNode extends AbstractApproverNode {
+public class LeaderApproverNode extends AbstractApproverNode implements NoticeNode {
 
   private final int leaderLevel;
 
@@ -25,4 +26,8 @@ public class LeaderApproverNode extends AbstractApproverNode {
     return orgService.findLeaderWithLevel(starterDeptId, leaderLevel);
   }
 
+  @Override
+  public List<User> getNotifiers() {
+    return this.getApprovers();
+  }
 }
